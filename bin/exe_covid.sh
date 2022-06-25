@@ -1,5 +1,6 @@
 #!/bin/bash
 
 # Executes the covid count retriever
+export PYTHONPATH=$PYTHONPATH:$(pwd)
 config_file=resources/config.json
-python main.py -c $config_file
+python src/main.py -c $config_file

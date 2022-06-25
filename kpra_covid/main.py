@@ -1,6 +1,7 @@
 import argparse
 import json
-from src import utils, covid_tracker as ct
+from kpra_covid.utils import get_url_as_json, read_csv_as_df
+from kpra_covid.covid_tracker import get_covid_date, get_current_count, get_percent_count
 
 
 def main(args):
@@ -15,8 +16,8 @@ def main(args):
         config = json.load(config_file)
 
     # Fetch covid and world population data
-    covid_json = utils.get_url_as_json(config['covid_data_url'])
-    world_pop_df = utils.read_csv_as_df(config['world_pop_csv_filename'])
+    covid_json = get_url_as_json(config['covid_data_url'])
+    world_pop_df = read_csv_as_df(config['world_pop_csv_filename'])
 
     type_available = {'c': 'confirmed',
                       'd': 'deaths',
@@ -67,20 +68,20 @@ def main(args):
         # Fetch the count output
         if count_format == 'percentage_of_population':
             count_out = str(
-                ct.get_percent_count(country=country,
+                get_percent_count(country=country,
                                      count_type=count_type,
                                      covid_json=covid_json,
                                      world_pop_df=world_pop_df)
                 ) + '% ' + 'of total population'
         else:
             count_out = format(
-                ct.get_current_count(country=country,
+                get_current_count(country=country,
                                      count_type=count_type,
                                      covid_json=covid_json),
                 ',d')
 
         # Fetch the updated date of covid data
-        covid_date = ct.get_covid_date(country=country, covid_json=covid_json)
+        covid_date = get_covid_date(country=country, covid_json=covid_json)
 
         # Display the output
         print("\n```````````````````````````````````````````````````````````")
