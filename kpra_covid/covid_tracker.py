@@ -1,8 +1,9 @@
+from typing import Dict
 import pandas as pd
 from datetime import datetime
 
 
-def get_percent_count(country, count_type, covid_json, world_pop_df):
+def get_percent_count(country: str, count_type: str, covid_json: Dict, world_pop_df: pd.DataFrame) -> float:
     """Returns the percentage count of given country and type
 
     :param country: country for which covid data is needed
@@ -15,12 +16,12 @@ def get_percent_count(country, count_type, covid_json, world_pop_df):
     covid_value = covid_json[country][-1][count_type]
     population_value = world_pop_df[
                         world_pop_df['Country'] == country].Pop.mean()
-    percent_count = covid_value / population_value * 100
+    percent_count = round(covid_value / population_value * 100, 5)
 
-    return round(percent_count, 5)
+    return percent_count
 
 
-def get_current_count(country, count_type, covid_json):
+def get_current_count(country: str, count_type: str, covid_json: Dict) -> int:
     """Returns the actual count of given country and type
 
     :param country: country for which covid data is needed
@@ -33,7 +34,7 @@ def get_current_count(country, count_type, covid_json):
     return covid_value
 
 
-def get_covid_date(country, covid_json):
+def get_covid_date(country: str, covid_json: Dict) -> datetime:
     """Returns the latest date of covid data
 
     :param country: country for which covid data is needed

@@ -1,12 +1,10 @@
-FROM python:3
+FROM python:3.7
 
-COPY bin/exe_covid.sh ./bin/
-COPY main.py .
-COPY src ./src
-COPY resources ./resources
 COPY requirements.txt .
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-CMD ["sh", "bin/exe_covid.sh"]
+ENV PYTHONPATH "${PYTHONPATH}:/kpra_covid"
+
+CMD ["python", "kpra_covid/main.py", "-c=kpra_covid/resources/config.json"]

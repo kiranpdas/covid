@@ -1,8 +1,9 @@
 import ssl, urllib.request, json
+from typing import Dict
 import pandas as pd
 
 
-def get_url_as_json(url):
+def get_url_as_json(url: str) -> Dict:
     """Retrieve data from url and returns as json
 
     :param url: url to retrieve data from
@@ -21,7 +22,7 @@ def get_url_as_json(url):
     return covid_json
 
 
-def read_csv_as_df(filename):
+def read_csv_as_df(filename: str) -> pd.DataFrame:
     """Fetch csv as json
 
     :param fully qualified name of the csv file
