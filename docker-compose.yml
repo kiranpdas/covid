@@ -1,0 +1,8 @@
+version: '3'
+services:
+  kpra-covid-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./kpra_covid:/kpra_covid
